@@ -1,0 +1,111 @@
+<div class="container">
+
+    <div class="subscriber-container">
+        <input type="text" (input)="onSearchChange($event)"
+            placeholder="Search">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Code</th>
+                    <th>Subscriber ID</th>
+                    <th>Price</th>
+                    <th>Discount Value</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Is Deleted</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <!-- Table Body -->
+            <tbody>
+                <!-- Table Rows - Use *ngFor to loop through subscriptions -->
+                <tr *ngFor="let subscription of filteredSubscriptions">
+                    <td>{{ subscription.id }}</td>
+                    <td>{{ subscription?.code }}</td>
+                    <td>{{ subscription?.subscriberId }}</td>
+                    <td>{{ subscription?.price }}</td>
+                    <td>{{ subscription?.discountValue }}</td>
+                    <td>{{ subscription?.startTime }}</td>
+                    <td>{{ subscription?.endTime}}</td>
+                    <td>{{ subscription?.isDeleted }}</td>
+                    <td>
+                        <!-- Update Button - Display inputs on click -->
+                        <button (click)="showUpdateForm(subscription)"
+                            class="updatebutton">Update</button>
+                        <!-- Delete Button -->
+                        <button (click)="onDelete(subscription.code)"
+                            class="cancelbutton">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="create-subscription-form">
+        <button (click)="toggleCreateSubscriptionForm()" class="updatebutton">Create
+            Subscription</button>
+        <div *ngIf="showCreateFormFlag">
+            <!-- Display inputs for creating a new subscription -->
+            <h2>Create New Subscription</h2>
+            <div class="form-group">
+                <label>Code: <input #codeInput type="number" required></label>
+            </div>
+            <div class="form-group">
+                <label>Subscriber ID: <input #subscriberIdInput type="number"
+                        required></label>
+            </div>
+            <div class="form-group">
+                <label>Price: <input #priceInput type="number" required></label>
+            </div>
+            <div class="form-group">
+                <label>Discount Value: <input #discountValueInput type="number"
+                        required></label>
+            </div>
+            <div class="form-group">
+                <label>Start Date: <input #startDateInput type="date" required></label>
+            </div>
+            <div class="form-group">
+                <label>End Date: <input #endDateInput type="date" required></label>
+            </div>
+            <button (click)="onCreate()" class="updatebutton">Create</button>
+            <button (click)="onCancelCreate()" class="cancelbutton">Cancel</button>
+        </div>
+    </div>
+
+    <div class="update-subscription-form">
+        <!-- Update Form -->
+        <div *ngIf="showUpdateFormFlag">
+            <!-- Display inputs for updating a subscription -->
+            <h2>Update Subscription</h2>
+            <div class="form-group">
+                <label>Code: <input #updateCodeInput type="number"
+                        [value]="code" required></label>
+            </div>
+            <div class="form-group">
+                <label>Subscriber ID: <input #updateSubscriberIdInput
+                        type="number" [value]="subscriberId" required></label>
+            </div>
+            <div class="form-group">
+                <label>Price: <input #updatePriceInput type="number"
+                        [value]="price" required></label>
+            </div>
+            <div class="form-group">
+                <label>Discount Value: <input #updateDiscountValueInput
+                        type="number" [value]="discountValue" required></label>
+            </div>
+            <div class="form-group">
+                <label>Start Date: <input #updateStartDateInput type="date"
+                        [value]="startDate" required></label>
+            </div>
+            <div class="form-group">
+                <label>End Date: <input #updateEndDateInput type="date"
+                        [value]="endDate" required></label>
+            </div>
+            <button (click)="onUpdateSubscription()" class="updatebutton">Update</button>
+            <button (click)="onCancelUpdateSubscription()" class="cancelbutton">Cancel</button>
+        </div>
+    </div>
+
+</div>
